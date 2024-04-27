@@ -2,9 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import load_dotenv
 
 
 def main():
+    load_dotenv()
+    NAME=os.getenv('NAME')
+    USER=os.getenv('USER')
+    PASSWORD=os.getenv('PASSWORD')
+    HOST=os.getenv('HOST')
+    PORT=os.getenv('PORT')
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'onlineshop.settings')
     try:
