@@ -3,23 +3,32 @@ from django.contrib.auth.models import User
 
 
     
-class Product(models.Model):
+class Notebook(models.Model):
+
+    COLORS=[
+        ('white','white'),
+        ('black','black'),
+        ('red','red'),
+        ('blue','blue'),
+        ('green','green'),
+            ]
+
     name=models.CharField(max_length=200)
     description=models.TextField()
     price=models.DecimalField(max_digits=5, decimal_places=2)
     image=models.ImageField(upload_to='')
-    
-    class Meta:
-        db_table = 'Product'  
-
-
-
-class Category(models.Model):
-    type_book=models.CharField(max_length=20)
-    author=models.CharField(max_length=25)
     publisher=models.CharField(max_length=20)
-    publish_date=models.DateField()
-    c_product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='c_product')
+    Telephone=models.BigIntegerField(blank=True, null=True)
+    color=models.CharField(max_length=20,choices=COLORS)
+
+    class Meta:
+        db_table = 'Notebook'  
+
+
+
+class Store(models.Model):
+    exist=models.CharField(max_length=20)
+    product=models.ForeignKey(Notebook,on_delete=models.CASCADE,related_name='product')
     
     class Meta:
         db_table = 'Category'  
@@ -39,22 +48,28 @@ class Customer(models.Model):
         db_table = 'Customer'  
 
 
+class Order(models.Model):
 
+    STATUS=[
+        ('Accepted','Accepted'),
+        ('not confirmed','not confirmed'),
+        ('pending','pending'),
+    ]
+    status_order=models.CharField(default=False,choices=STATUS)
+    date_order=models.DateTimeField()#
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='customer')
+
+    class Meta:
+        db_table = 'Order' 
 
 class Order_Item(models.Model):
-    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='product')
+    NotebookInStore=models.ManyToManyField(Store,on_delete=models.CASCADE,related_name='NotebookInStore')
     quantity=models.PositiveIntegerField(default=1)
-    sum_price=models.BigIntegerField(blank=True, null=True , unique=True)
+    item=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item')
+    
 
     class Meta:
         db_table = 'Order_Item' 
 
-class Order(models.Model):
-    date_order=models.DateTimeField()#
-    status_order=models.BooleanField(default=False)
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='customer')
-    item=models.ForeignKey(Order_Item,on_delete=models.CASCADE,related_name='item')
-
-    class Meta:
-        db_table = 'Order'  
+ 
  
