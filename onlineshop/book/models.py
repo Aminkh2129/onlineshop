@@ -65,7 +65,7 @@ class Order(models.Model):
 class Order_Item(models.Model):
     notebooks=models.ManyToManyField(Store)
     quantity=models.PositiveIntegerField(default=1)
-    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item')
+    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item' , null=True )
     
 
     class Meta:
