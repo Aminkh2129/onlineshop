@@ -40,8 +40,8 @@ class Customer(models.Model):
     #Last_name=models.CharField(max_length=20)
     Address=models.CharField(max_length=200)
     #Email=models.EmailField(unique=True)
-    Telephone=models.BigIntegerField(blank=True, null=True , unique=True)
-    unit_no=models.BigIntegerField(blank=True, null=True , unique=True)
+    Telephone=models.CharField(blank=True, null=True , unique=True , max_length=11)
+    unit_no=models.IntegerField(blank=True, null=True , unique=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
 
     class Meta:
@@ -63,9 +63,9 @@ class Order(models.Model):
         db_table = 'Order' 
 
 class Order_Item(models.Model):
-    NotebookInStore=models.ManyToManyField(Store,on_delete=models.CASCADE,related_name='NotebookInStore')
+    notebooks=models.ManyToManyField(Store)
     quantity=models.PositiveIntegerField(default=1)
-    item=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item')
+    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='item')
     
 
     class Meta:
