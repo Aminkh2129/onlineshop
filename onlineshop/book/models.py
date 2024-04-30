@@ -39,9 +39,13 @@ class Notebook(models.Model):
 
 
 class Store(models.Model):
-    exist=models.CharField(max_length=20)
+    count=models.BigIntegerField(null=True)
+    is_exist=models.BooleanField(default=False)
     product=models.ForeignKey(Notebook,on_delete=models.CASCADE,related_name='product')
     
+
+    def __str__(self):
+            return self.product.name
     class Meta:
         db_table = 'Category'  
 
@@ -56,6 +60,10 @@ class Customer(models.Model):
     unit_no=models.IntegerField(blank=True, null=True , unique=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
 
+
+    def __str__(self):
+            return f"{self.user.first_name}{self.user.last_name} --- {self.Address}"
+    
     class Meta:
         db_table = 'Customer'  
 
