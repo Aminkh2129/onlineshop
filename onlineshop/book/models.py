@@ -47,7 +47,7 @@ class Store(models.Model):
     def __str__(self):
             return self.product.name
     class Meta:
-        db_table = 'Category'  
+        db_table = 'Store'  
 
 
 class Customer(models.Model):
