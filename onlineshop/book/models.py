@@ -30,7 +30,6 @@ class Notebook(models.Model):
     color=models.CharField(max_length=20,choices=COLORS)
     is_active=models.BooleanField(default=True)
 
-
     def __str__(self):
             return self.name
     class Meta:
@@ -43,7 +42,6 @@ class Store(models.Model):
     is_exist=models.BooleanField(default=False)
     product=models.ForeignKey(Notebook,on_delete=models.CASCADE,related_name='product')
     
-
     def __str__(self):
             return self.product.name
     class Meta:
@@ -60,10 +58,8 @@ class Customer(models.Model):
     unit_no=models.IntegerField(blank=True, null=True , unique=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
 
-
     def __str__(self):
             return f"{self.user.first_name}{self.user.last_name} --- {self.Address}"
-    
     class Meta:
         db_table = 'Customer'  
 
