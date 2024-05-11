@@ -6,6 +6,9 @@ from .models import Notebook,Customer,Store,Order,Order_Item
 # Register your models here.
 @admin.register(Notebook)
 class NotebookAdmin(admin.ModelAdmin):
+    list_display=('id','name','publisher')
+    list_filter=('color','page_number')
+    search_fields=('name',)
     pass
 
 @admin.register(Store)

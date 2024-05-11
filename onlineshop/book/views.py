@@ -20,6 +20,13 @@ from rest_framework.permissions import IsAuthenticated
 class NoteBookListApiView(generics.ListAPIView):
     queryset=Notebook.objects.all()
     serializer_class=NotebookSerializers
+    def get_queryset(self):
+        color=self.request.query_params.get('color' , '')
+        if  not color:
+            return Notebook.objects.all()
+        return Notebook.objects.filter(color=color)
+         
+    
 
 class NoteBookCRDApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Notebook.objects.all()
@@ -45,16 +52,13 @@ class OrderListApiView(generics.ListAPIView):
     queryset=Order.objects.all()
     serializer_class=OrderSerializers
 
-
 class OrderCRDApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Order.objects.all()
     serializer_class=OrderSerializers
 
-
 class OrderItemListApiView(generics.ListAPIView):
     queryset=Order_Item.objects.all()
     serializer_class=OrderItemSerializers
-
 
 class OrderItemCRDApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Order_Item.objects.all()

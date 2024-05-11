@@ -7,18 +7,20 @@ class OrderItemSerializers(serializers.ModelSerializer):
         model=Order_Item
         fields='__all__'
 
+class NotebookSerializers(serializers.ModelSerializer):
+    #notebooks=StoreSerializers(read_only=True , many=True)
+    class Meta:
+        model=Notebook
+        fields='__all__'
+
 
 class StoreSerializers(serializers.ModelSerializer):
+    product=NotebookSerializers(read_only=True )
     class Meta:
         model=Store
         fields='__all__'
 
-class NotebookSerializers(serializers.ModelSerializer):
-    product=StoreSerializers(read_only=True , many=True)
-    notebooks=StoreSerializers(read_only=True , many=True)
-    class Meta:
-        model=Notebook
-        fields=["publisher","name"]
+
 
 class OrderSerializers(serializers.ModelSerializer):
     item=StoreSerializers(read_only=True , many=True)

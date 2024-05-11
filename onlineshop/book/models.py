@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 
     
@@ -54,7 +55,12 @@ class Customer(models.Model):
     #Last_name=models.CharField(max_length=20)
     Address=models.CharField(max_length=200)
     #Email=models.EmailField(unique=True)
-    Telephone=models.CharField(blank=True, null=True , unique=True , max_length=11)
+    Telephone=models.CharField(blank=True, null=True , unique=True , validators=[
+        RegexValidator(
+        regex=r'^\+?9?8?\d{9,14}$',
+        message="Phone number must be entered in the format '+983456789'. Up to 11 digits allowed."
+      ),
+    ])
     unit_no=models.IntegerField(blank=True, null=True , unique=True)
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
 
