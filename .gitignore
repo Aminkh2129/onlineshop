@@ -179,13 +179,6 @@ cython_debug/
 
 .env
 
-onlineshop/book/views.py onlineshop/Screenshot_20230608_011428.png 
-onlineshop/Screenshot_20230115_035707.png 
-onlineshop/Screenshot_20230115_035527.png 
-onlineshop/Screenshot_20230115_035527_dzlFJXt.png 
-onlineshop/Screenshot_20230115_035527_Dq0sCZQ.png 
-onlineshop/Screenshot_20230115_035510.png 
-onlineshop/Screenshot_20230115_035510_BJSazZ7.png 
-onlineshop/Screenshot_20230115_035510_b7GcdBv.png 
-onlineshop/Screenshot_20230115_035309.png 
-onlineshop/Screenshot_2024-03-04_230136.png
+
+onlineshop/*.png  
+#all file whith format .png

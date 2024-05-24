@@ -57,7 +57,7 @@ class Customer(models.Model):
     #Email=models.EmailField(unique=True)
     Telephone=models.CharField(blank=True, null=True , unique=True , validators=[
         RegexValidator(
-        regex=r'^\+?9?8?\d{9,14}$',
+        regex=r'^(\+98|0)?9\d{9}$',
         message="Phone number must be entered in the format '+983456789'. Up to 11 digits allowed."
       ),
     ])

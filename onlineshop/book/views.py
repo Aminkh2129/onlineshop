@@ -18,13 +18,23 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class NoteBookListApiView(generics.ListAPIView):
-    queryset=Notebook.objects.all()
+    #queryset=Notebook.objects.all()
     serializer_class=NotebookSerializers
     def get_queryset(self):
         color=self.request.query_params.get('color' , '')
-        if  not color:
+        publisher=self.request.query_params.get('publisher' , '')
+        #pageNumber=self.request.query_params.get('page_number' , '')
+
+        final=Notebook.objects.filter(color=color,
+                                    publisher=publisher,
+                                      page_number__gt=40)
+        print(color,publisher)
+        if not final:
             return Notebook.objects.all()
-        return Notebook.objects.filter(color=color)
+
+        return final
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
          
     
 
@@ -43,6 +53,12 @@ class StoreCRDApiView(generics.RetrieveUpdateDestroyAPIView):
 class CustomerListApiView(generics.ListAPIView):
     queryset=Customer.objects.all()
     serializer_class=CustomerSerializers
+    def get_queryset(self):
+        code_meli=self.request.query_params.get('Code_meli','')
+        if  not code_meli:
+            return Customer.objects.all()
+        return Customer.objects.filter(Code_meli=int(code_meli))
+         
 
 class CustomerCRDApiView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Customer.objects.all()
